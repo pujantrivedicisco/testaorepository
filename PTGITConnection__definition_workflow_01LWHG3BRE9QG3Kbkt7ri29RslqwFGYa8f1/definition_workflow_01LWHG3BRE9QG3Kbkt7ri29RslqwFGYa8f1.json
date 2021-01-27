@@ -1,0 +1,642 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01LWHG3BRE9QG3Kbkt7ri29RslqwFGYa8f1",
+    "name": "PT_TargetTesting",
+    "title": "PT_TargetTesting",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": null,
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "PT_TargetTesting",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01LWHG5SOY73B07rybDZKGnkh1d7WwyGyh8",
+        "name": "HTTP Request",
+        "title": "HTTP Request",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "HTTP Request",
+          "method": "GET",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01LWHFS5WAF4306Y2zntRG9E9wMk3RzfHsd"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LX78KV9QG9O67LQSbm5hmFX72eHcL5mGQ",
+        "name": "Ansible Tower Get Job Info",
+        "title": "Ansible Tower Get Job Info",
+        "type": "python3.ansible_tower_job_info",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Ansible Tower Get Job Info",
+          "job_id": "1",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01LX75O85D3EU1qpVmXU8DdTjhP8vlFlsvz"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LX796AKK32B5IQjjPle3b6EwQEUb3QmQY",
+        "name": "Ansible Tower Launch Job Template",
+        "title": "Ansible Tower Launch Job Template",
+        "type": "python3.ansible_tower_job_template_launch",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Ansible Tower Launch Job Template",
+          "launch_variables": "{\n  \"extra_vars\": \"name: test\\n\",\n  \"scm_branch\": \"\"\n}",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01LX75O85D3EU1qpVmXU8DdTjhP8vlFlsvz"
+          },
+          "template_id": 8
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LWIQ1ZJB4NY1txTA7TqnOJeEH29ZP1zt2",
+        "name": "Describe VPCs",
+        "title": "Describe VPCs",
+        "type": "aws.describe_vpcs",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Describe VPCs",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01LWHNMOMAE126qsXP5CxSP3K3GCBhMTMGR"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LWJ1GFLSBMR4vMD05HRkxfMUFq5BAzOV3",
+        "name": "ND-AMQP_WF",
+        "title": "ND-AMQP_WF",
+        "type": "workflow.sub_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "display_name": "ND-AMQP_WF",
+          "runtime_user": {
+            "target_default": true
+          },
+          "target": {
+            "execute_on_this_target": true,
+            "target_id": "definition_target_01LWIV0RXIT0R1N3ntx6rq2BP0qpRKyCzkN",
+            "target_type": "amqp.endpoint"
+          },
+          "workflow_id": "definition_workflow_01I99O1YXJZQD2ujHdBQXpLGAQsR7IFGPYv"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LWI9PROL14C0MqV78VTOuForyf2JqVwZn",
+        "name": "Generic AWS API Request",
+        "title": "Generic AWS API Request",
+        "type": "aws.api_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "api_call_method": "GET",
+          "api_url": "test",
+          "continue_on_failure": false,
+          "display_name": "Generic AWS API Request",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": true,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01LWHNMOMAE126qsXP5CxSP3K3GCBhMTMGR"
+          }
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_01LWHFS5WAF4306Y2zntRG9E9wMk3RzfHsd": {
+      "unique_name": "definition_target_01LWHFS5WAF4306Y2zntRG9E9wMk3RzfHsd",
+      "name": "pt_google_withproxywe",
+      "title": "pt_google_withproxywe",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "pt_google_withproxywe",
+        "host": "www.google.com",
+        "ignore_proxy": true,
+        "no_runtime_user": true,
+        "protocol": "https",
+        "proxy_url": "http://18.216.6.77:3128",
+        "proxy_username": "admin"
+      }
+    },
+    "definition_target_01LWHNMOMAE126qsXP5CxSP3K3GCBhMTMGR": {
+      "unique_name": "definition_target_01LWHNMOMAE126qsXP5CxSP3K3GCBhMTMGR",
+      "name": "PT_AWS_TARGET2",
+      "title": "PT_AWS_TARGET2",
+      "type": "aws.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_01LX77XDWEVHR3J4gFdYkkAfwaePn8s5e52",
+        "display_name": "PT_AWS_TARGET2",
+        "ignore_proxy": false,
+        "proxy_password": "*****",
+        "proxy_url": "http://18.216.6.77:3128",
+        "proxy_username": "admin",
+        "region": "us-east-1"
+      }
+    },
+    "definition_target_01LWIV0RXIT0R1N3ntx6rq2BP0qpRKyCzkN": {
+      "unique_name": "definition_target_01LWIV0RXIT0R1N3ntx6rq2BP0qpRKyCzkN",
+      "name": "PT_AMQP1",
+      "title": "PT_AMQP1",
+      "type": "amqp.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_01LWIUYX2PHR7298x5pPvxt8xGPXcmItQfv",
+        "display_name": "PT_AMQP1",
+        "host": "18.220.135.244",
+        "ignore_certificate_errors": true,
+        "port": 5671,
+        "ssl_enabled": true,
+        "vhost": "/"
+      }
+    },
+    "definition_target_01LX75O85D3EU1qpVmXU8DdTjhP8vlFlsvz": {
+      "unique_name": "definition_target_01LX75O85D3EU1qpVmXU8DdTjhP8vlFlsvz",
+      "name": "PT_Ansible4",
+      "title": "PT_Ansible4",
+      "type": "python3.ansible_tower_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "default_runtime_user_id": "definition_runtime_user_01LX7382HU8CA4zExHbXnVhJFpurPyJpTgI",
+        "disable_certificate_validation": true,
+        "display_name": "PT_Ansible4",
+        "host": "18.222.122.92",
+        "ignore_proxy": true,
+        "protocol": "https"
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_01LWIUYX2PHR7298x5pPvxt8xGPXcmItQfv": {
+      "unique_name": "definition_runtime_user_01LWIUYX2PHR7298x5pPvxt8xGPXcmItQfv",
+      "name": "PT_AMQPKey",
+      "title": "PT_AMQPKey",
+      "type": "runtime_user.amqp_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "PT_AMQPKey",
+        "password": "*****",
+        "username": "*****"
+      }
+    },
+    "definition_runtime_user_01LX7382HU8CA4zExHbXnVhJFpurPyJpTgI": {
+      "unique_name": "definition_runtime_user_01LX7382HU8CA4zExHbXnVhJFpurPyJpTgI",
+      "name": "pt_ansiblekeys_18.222.122.92",
+      "title": "pt_ansiblekeys_18.222.122.92",
+      "type": "runtime_user.ansible_tower_oauth_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "pt_ansiblekeys_18.222.122.92",
+        "oauth_type": "*****",
+        "password": "*****",
+        "username": "*****"
+      }
+    },
+    "definition_runtime_user_01LX77XDWEVHR3J4gFdYkkAfwaePn8s5e52": {
+      "unique_name": "definition_runtime_user_01LX77XDWEVHR3J4gFdYkkAfwaePn8s5e52",
+      "name": "PT_AWSKey",
+      "title": "PT_AWSKey",
+      "type": "runtime_user.aws_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "access_key": "*****",
+        "display_name": "PT_AWSKey",
+        "secret_key": "*****"
+      }
+    }
+  },
+  "subworkflows": [
+    {
+      "workflow": {
+        "unique_name": "definition_workflow_01I99O1YXJZQD2ujHdBQXpLGAQsR7IFGPYv",
+        "name": "ND-AMQP_WF",
+        "title": "ND-AMQP_WF",
+        "type": "generic.workflow",
+        "base_type": "workflow",
+        "variables": null,
+        "properties": {
+          "atomic": {
+            "is_atomic": false
+          },
+          "delete_workflow_instance": false,
+          "display_name": "ND-AMQP_WF",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "specify_on_workflow_start": false,
+            "target_default": true
+          },
+          "target": {
+            "target_type": "amqp.endpoint",
+            "target_id": "definition_target_01LWIV0RXIT0R1N3ntx6rq2BP0qpRKyCzkN",
+            "execute_on_workflow_target": true
+          }
+        },
+        "object_type": "definition_workflow",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01I99OFPTSYJ13RqjEee0VADJXasymLEadN",
+            "name": "Declare AMQP Exchange",
+            "title": "Declare AMQP Exchange",
+            "type": "amqp.declare_exchange",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "arguments": [
+                {
+                  "key": "key1",
+                  "value": "1234"
+                }
+              ],
+              "auto_delete": false,
+              "continue_on_failure": false,
+              "display_name": "Declare AMQP Exchange",
+              "durable": true,
+              "name": "sxobetaexit_exchange",
+              "runtime_user": {
+                "override_target_runtime_user": false,
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "override_workflow_target": false,
+                "override_workflow_target_group_criteria": false,
+                "use_workflow_target": true,
+                "use_workflow_target_group": false
+              },
+              "type": "direct"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I99O7ONLF1R40fL1FF06B7rhzhWsKx1io",
+            "name": "Parallel Block",
+            "title": "Parallel Block",
+            "type": "logic.parallel",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Parallel Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_01I99O7RQD3901azzhx2mfOyJuvlTa4UUog",
+                "name": "Parallel Branch",
+                "title": "Parallel Branch",
+                "type": "logic.parallel_block",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Parallel Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_01I99OHC8BJQF0S8wa5QxBYpcdUr8ckHVAn",
+                    "name": "Declare AMQP Queue",
+                    "title": "Declare AMQP Queue",
+                    "type": "amqp.declare_queue",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "arguments": [
+                        {
+                          "key": "key1",
+                          "value": "1234"
+                        }
+                      ],
+                      "auto_delete": false,
+                      "continue_on_failure": false,
+                      "display_name": "Declare AMQP Queue",
+                      "durable": true,
+                      "name": "sxobetaexit_green",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99OM840R417PArQTp7q1a61NYLGXsTe5",
+                    "name": "Bind AMQP Queue",
+                    "title": "Bind AMQP Queue",
+                    "type": "amqp.bind_queue",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "arguments": [
+                        {
+                          "key": "expires",
+                          "value": "4000"
+                        }
+                      ],
+                      "continue_on_failure": false,
+                      "display_name": "Bind AMQP Queue",
+                      "exchange_name": "$activity.definition_activity_01I99OFPTSYJ13RqjEee0VADJXasymLEadN.output.exchange_name$",
+                      "name": "$activity.definition_activity_01I99OHC8BJQF0S8wa5QxBYpcdUr8ckHVAn.output.queue_name$",
+                      "routing_key": "green",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99OP68ELDB5GGTxPVsIkCdZ4cEBvLonI",
+                    "name": "Publish AMQP Message",
+                    "title": "Publish AMQP Message",
+                    "type": "amqp.publish_message",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "app_id": "app_green",
+                      "body": "test green",
+                      "continue_on_failure": false,
+                      "delivery_mode": 1,
+                      "display_name": "Publish AMQP Message",
+                      "exchange_name": "$activity.definition_activity_01I99OFPTSYJ13RqjEee0VADJXasymLEadN.output.exchange_name$",
+                      "priority": 5,
+                      "routing_key": "green",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99OTIRJ2UU0DqThkXknttUCZ9ejAOp3g",
+                    "name": "Get AMQP Message",
+                    "title": "Get AMQP Message",
+                    "type": "amqp.get_message",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "continue_on_failure": false,
+                      "display_name": "Get AMQP Message",
+                      "name": "$activity.definition_activity_01I99OM840R417PArQTp7q1a61NYLGXsTe5.output.queue$",
+                      "noack": false,
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_01I99O7TCVGI83mzl4yoHd0m2KVOYdaOoKL",
+                "name": "Parallel Branch",
+                "title": "Parallel Branch",
+                "type": "logic.parallel_block",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Parallel Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_01I99OI9KSIFE5X0YIfHZfAmbdoGViELB3R",
+                    "name": "Declare AMQP Queue",
+                    "title": "Declare AMQP Queue",
+                    "type": "amqp.declare_queue",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "arguments": [
+                        {
+                          "key": "key2",
+                          "value": "1234"
+                        }
+                      ],
+                      "auto_delete": false,
+                      "continue_on_failure": false,
+                      "display_name": "Declare AMQP Queue",
+                      "durable": true,
+                      "name": "sxobetaexit_red",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": true,
+                        "target_id": "definition_target_01LWIV0RXIT0R1N3ntx6rq2BP0qpRKyCzkN"
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99ONDPZ3EI2LdExRtlf4ykCtLzAXncTg",
+                    "name": "Bind AMQP Queue",
+                    "title": "Bind AMQP Queue",
+                    "type": "amqp.bind_queue",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "arguments": [
+                        {
+                          "key": "expires",
+                          "value": "5000"
+                        }
+                      ],
+                      "continue_on_failure": false,
+                      "display_name": "Bind AMQP Queue",
+                      "exchange_name": "$activity.definition_activity_01I99OFPTSYJ13RqjEee0VADJXasymLEadN.output.exchange_name$",
+                      "name": "$activity.definition_activity_01I99OI9KSIFE5X0YIfHZfAmbdoGViELB3R.output.queue_name$",
+                      "routing_key": "red",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99ORUWGTOQ2jU1Cmb0aUbez3t3SHeFmr",
+                    "name": "Publish AMQP Message",
+                    "title": "Publish AMQP Message",
+                    "type": "amqp.publish_message",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "app_id": "app_123",
+                      "body": "test red",
+                      "content_encoding": "content_123",
+                      "content_type": "json",
+                      "continue_on_failure": false,
+                      "delivery_mode": 1,
+                      "display_name": "Publish AMQP Message",
+                      "exchange_name": "$activity.definition_activity_01I99OFPTSYJ13RqjEee0VADJXasymLEadN.output.exchange_name$",
+                      "expiration": 300,
+                      "message_id": "123",
+                      "priority": 5,
+                      "routing_key": "red",
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01I99OUWO7BIB7mjbNZPy1gu90htVmbx98f",
+                    "name": "Get AMQP Message",
+                    "title": "Get AMQP Message",
+                    "type": "amqp.get_message",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "continue_on_failure": false,
+                      "display_name": "Get AMQP Message",
+                      "name": "$activity.definition_activity_01I99ONDPZ3EI2LdExRtlf4ykCtLzAXncTg.output.queue$",
+                      "noack": false,
+                      "runtime_user": {
+                        "override_target_runtime_user": false,
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": false,
+                        "override_workflow_target_group_criteria": false,
+                        "use_workflow_target": true,
+                        "use_workflow_target_group": false
+                      }
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "categories": [
+          "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+        ]
+      }
+    }
+  ]
+}
